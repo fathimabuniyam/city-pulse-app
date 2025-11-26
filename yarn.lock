@@ -1748,7 +1748,7 @@
     use-latest-callback "^0.2.4"
     use-sync-external-store "^1.5.0"
 
-"@react-navigation/native-stack@^7.3.16":
+"@react-navigation/native-stack@^7.3.16", "@react-navigation/native-stack@^7.8.1":
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/native-stack/-/native-stack-7.8.1.tgz#ac1bce9d125d131393197ef36ab355c6ef8de6b7"
   integrity sha512-76dqsWJiDzw+H6ZZJXNS32j9hYjm+J+bkV+vtribaWv5Ky0VUX1K0jGT7Z4EKiHqS7dVsqGHTnUXwwqA/xj1gg==
@@ -1758,7 +1758,7 @@
     sf-symbols-typescript "^2.1.0"
     warn-once "^0.1.1"
 
-"@react-navigation/native@^7.1.8":
+"@react-navigation/native@^7.1.22", "@react-navigation/native@^7.1.8":
   version "7.1.22"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-7.1.22.tgz#f97daa0fecfd45a99ddc923ba81b8cf0540bb1bc"
   integrity sha512-WuaS4iVFfuHIR6wIYcBA/ZF9/++bbtr0cEO7ohinc3PE+7PZuVJr7KgdrAFay3OI6GmqW0cmuUKZ0BPPDwQ7dw==
