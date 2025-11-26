@@ -1,4 +1,4 @@
-export const URLs = {
+export const URLs: any = {
   Tabs: '(tabs)',
 
   Login: 'auth/login',
