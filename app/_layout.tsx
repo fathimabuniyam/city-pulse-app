@@ -1,3 +1,4 @@
+import ProvidersHub from '@/providers/ProvidersHub';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
@@ -8,7 +9,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   return (
-    <>
+    <ProvidersHub>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
@@ -21,6 +22,6 @@ export default function RootLayout() {
         />
       </Stack>
       <StatusBar style="auto" />
-    </>
+    </ProvidersHub>
   );
 }
