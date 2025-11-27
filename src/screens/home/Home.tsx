@@ -1,13 +1,11 @@
-import EventCard from '@/components/EventCard';
 import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import { useAuth } from '@/providers/AuthProvider';
-import { useGetAllEvents } from '@/queries/useGetAllEvents.query';
 import { useState } from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import HomeEvents from './HomeEvents';
 import HomeSearch from './HomeSearch';
 
 const Home = () => {
@@ -15,20 +13,6 @@ const Home = () => {
 
   const [keyword, setKeyword] = useState('');
   const [city, setCity] = useState('dubai');
-
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    refetch,
-    isRefetching,
-  } = useGetAllEvents({ keyword, city });
-
-  // Flatten pages only for FlatList
-  const events = data?.pages?.flatMap((page) => page.events) ?? [];
-
-  console.log('events : ', events);
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -45,27 +29,7 @@ const Home = () => {
           />
         </View>
 
-        <FlatList
-          data={events}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          renderItem={({ item }) => <EventCard event={item} />}
-          onEndReached={() => {
-            if (hasNextPage && !isFetchingNextPage) fetchNextPage();
-          }}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={
-            isFetchingNextPage ? <ActivityIndicator /> : null
-          }
-          refreshControl={
-            <RefreshControl
-              tintColor={Colors.PRIMARY}
-              onRefresh={refetch}
-              refreshing={isRefetching}
-            />
-          }
-        />
+        <HomeEvents keyword={keyword} city={city} />
       </View>
     </SafeAreaView>
   );
