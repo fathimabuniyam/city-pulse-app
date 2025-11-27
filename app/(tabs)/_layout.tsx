@@ -1,21 +1,10 @@
 import { HapticTab } from '@/components/ui/HapticTab';
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
-import { selectIsLoggedIn } from '@/store/reducers/auth-persist.reducer';
-import { URLs } from '@/utils/URLs.util';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import { Tabs, useRouter } from 'expo-router';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
-  const router = useRouter();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  useEffect(() => {
-    if (isLoggedIn === false) router.replace(URLs.Login);
-  }, [isLoggedIn]);
-
   return (
     <Tabs
       screenOptions={{

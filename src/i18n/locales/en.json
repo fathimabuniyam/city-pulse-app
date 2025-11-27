@@ -12,8 +12,17 @@
   "required": "Required",
   "dont_have_an_account": "Don't have an account?",
   "full_name": "Full Name",
-  "minimum_value_characters": "Minimum {value} characters",
-  "maximum_value_characters": "Maximum {value} characters",
+  "minimum_value_characters": "Minimum {{value}} characters",
+  "maximum_value_characters": "Maximum {{value}} characters",
   "must_contain_at_least_one_uppercase_letter_one_low": "Must contain at least one uppercase letter, one lowercase letter, and one number or special character",
-  "already_have_an_account": "Already have an account?"
+  "already_have_an_account": "Already have an account?",
+  "success": "Success",
+  "error": "Error",
+  "something_went_wrong_please_try_again_later": "Something_went_wrong_please_try_again_later",
+  "register": "Register",
+  "token_error_try_again": "Token error. Try again",
+  "invalid_credentials_try_again": "Invalid credentials. Try again",
+  "registration_failed_try_again": "Registration Failed._Try_again",
+  "you_are_registered_successfully_please_login_to_co": "You are registered successfully. Please login to continue",
+  "please_wait": "Please wait..."
 }
