@@ -16,6 +16,9 @@ const Colors = {
   YELLOW: '#FFC107',
   ORANGE: '#ff9807ff',
   GREEN: '#158A67',
+
+  LIGHT_GREEN: '#c9ede4ff',
+  LIGHT_RED: '#f8d8d8ff',
 };
 
 export default Colors;
