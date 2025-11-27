@@ -1,5 +1,7 @@
+import Signup from '@/screens/auth/Signup';
+
 const SignUpScreen = () => {
-  return null;
+  return <Signup />;
 };
 
 export default SignUpScreen;

@@ -1,4 +1,19 @@
 {
   "profile": "Profile",
-  "home": "Home"
+  "home": "Home",
+  "welcome_back": "Welcome back",
+  "sign_in_to_continue_exploring_events": "Sign in to continue exploring events.",
+  "sign_up": "Sign Up",
+  "create_an_account_to_start_exploring": "Create an account to start exploring events.",
+  "email_address": "Email Address",
+  "password": "Password",
+  "sign_in": "Sign In",
+  "invalid_email": "Invalid Email",
+  "required": "Required",
+  "dont_have_an_account": "Don't have an account?",
+  "full_name": "Full Name",
+  "minimum_value_characters": "Minimum {value} characters",
+  "maximum_value_characters": "Maximum {value} characters",
+  "must_contain_at_least_one_uppercase_letter_one_low": "Must contain at least one uppercase letter, one lowercase letter, and one number or special character",
+  "already_have_an_account": "Already have an account?"
 }
