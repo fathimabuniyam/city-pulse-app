@@ -1,25 +1,26 @@
-export const Fonts = {
-  // English fonts
-  'Montserrat-300': require('../assets/fonts/Montserrat-Light.ttf'),
-  'Montserrat-300i': require('../assets/fonts/Montserrat-LightItalic.ttf'),
-  'Montserrat-400': require('../assets/fonts/Montserrat-Regular.ttf'),
-  'Montserrat-400i': require('../assets/fonts/Montserrat-Italic.ttf'),
-  'Montserrat-500': require('../assets/fonts/Montserrat-Medium.ttf'),
-  'Montserrat-500i': require('../assets/fonts/Montserrat-MediumItalic.ttf'),
-  'Montserrat-600': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-  'Montserrat-600i': require('../assets/fonts/Montserrat-SemiBoldItalic.ttf'),
-  'Montserrat-700': require('../assets/fonts/Montserrat-Bold.ttf'),
-  'Montserrat-700i': require('../assets/fonts/Montserrat-BoldItalic.ttf'),
+import {
+  Cairo_400Regular,
+  Cairo_500Medium,
+  Cairo_600SemiBold,
+  Cairo_700Bold,
+} from '@expo-google-fonts/cairo';
+import {
+  Jost_400Regular,
+  Jost_500Medium,
+  Jost_600SemiBold,
+  Jost_700Bold,
+} from '@expo-google-fonts/jost';
 
-  // TODO: Arabic fonts
-  'Arabic-300': require('../assets/fonts/Montserrat-Light.ttf'),
-  'Arabic-300i': require('../assets/fonts/Montserrat-LightItalic.ttf'),
-  'Arabic-400': require('../assets/fonts/Montserrat-Regular.ttf'),
-  'Arabic-400i': require('../assets/fonts/Montserrat-Italic.ttf'),
-  'Arabic-500': require('../assets/fonts/Montserrat-Medium.ttf'),
-  'Arabic-500i': require('../assets/fonts/Montserrat-MediumItalic.ttf'),
-  'Arabic-600': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-  'Arabic-600i': require('../assets/fonts/Montserrat-SemiBoldItalic.ttf'),
-  'Arabic-700': require('../assets/fonts/Montserrat-Bold.ttf'),
-  'Arabic-700i': require('../assets/fonts/Montserrat-BoldItalic.ttf'),
+export const Fonts = {
+  // English
+  'Jost-400': Jost_400Regular,
+  'Jost-500': Jost_500Medium,
+  'Jost-600': Jost_600SemiBold,
+  'Jost-700': Jost_700Bold,
+
+  // Arabic
+  'Cairo-400': Cairo_400Regular,
+  'Cairo-500': Cairo_500Medium,
+  'Cairo-600': Cairo_600SemiBold,
+  'Cairo-700': Cairo_700Bold,
 };

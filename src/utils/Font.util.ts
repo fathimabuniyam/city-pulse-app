@@ -24,7 +24,7 @@ export const fontFamily = (
   italic: boolean = false,
 ) => {
   const fontWeight = weight ?? 400;
-  const fontFamily = language === LocaleEnum.EN ? 'Montserrat' : 'Arabic';
+  const fontFamily = language === LocaleEnum.EN ? 'Jost' : 'Cairo';
   const fontStyle = italic ? `${fontWeight}i` : fontWeight;
   return `${fontFamily}-${fontStyle}`;
 };
