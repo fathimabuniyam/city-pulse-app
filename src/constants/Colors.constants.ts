@@ -3,7 +3,7 @@ const Colors = {
   SECONDARY: '#1F3632',
 
   TEXT_PRIMARY: '#1D1D1D',
-  TEXT_SECONDARY: '#616161',
+  TEXT_SECONDARY: '#646464ff',
 
   BORDER_GRAY: '#E0E0E0', // For Borders
   BACKGROUND: '#F2F2F2', // Screen Background
