@@ -10,7 +10,7 @@ export const loginRules = Yup.object().shape({
 });
 
 export const signupRules = Yup.object({
-  full_name: Yup.string()
+  displayName: Yup.string()
     .trim()
     .required(t('required'))
     .min(2, t('minimum_value_characters', { value: 2 }))

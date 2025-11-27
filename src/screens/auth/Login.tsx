@@ -6,6 +6,7 @@ import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import AuthLayout from '@/layouts/AuthLayout';
+import { useLogin } from '@/queries/useLogin.query';
 import { FormikHelper } from '@/types/form.types';
 import { URLs } from '@/utils/URLs.util';
 import { Formik } from 'formik';
@@ -14,22 +15,15 @@ import { Button } from 'react-native-paper';
 import { loginRules } from './Auth.helper';
 
 const Login = () => {
-  // const { mutate: onLogin, isPending } = useLogin();
+  const { mutate: onLogin, isPending } = useLogin();
 
   const handleLogin = (values: any, helper: FormikHelper) => {
-    // const { setErrors, resetForm } = helper;
-    // onLogin(
-    //   { data: values },
-    //   {
-    //     onSuccess: () => {
-    //       handleOpenVerify();
-    //       resetForm();
-    //     },
-    //     onError: (error: ErrorResponseType) => {
-    //       setAPIFormErrors(setErrors, error);
-    //     },
-    //   },
-    // );
+    const { setErrors, resetForm } = helper;
+    onLogin(values, {
+      onSuccess: () => {
+        resetForm();
+      },
+    });
   };
 
   return (
@@ -58,7 +52,8 @@ const Login = () => {
               textColor={Colors.WHITE}
               style={[buttonStyles, styles.button]}
               onPress={() => handleSubmit()}
-              // loading={isPending}
+              loading={isPending}
+              disabled={isPending}
             >
               {t('sign_in')}
             </Button>

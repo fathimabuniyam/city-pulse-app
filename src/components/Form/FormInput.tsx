@@ -1,5 +1,4 @@
 import Colors from '@/constants/Colors.constants';
-import { alpha } from '@/utils/Colors.util';
 import { fontFamilyCss } from '@/utils/Font.util';
 import MaterialDesignIcons, {
   MaterialDesignIconsIconName,
@@ -58,9 +57,7 @@ const FormInput: React.FC<FormInputProps> = ({
         style={[
           styles.container,
           {
-            borderColor: hasError
-              ? Colors.RED
-              : alpha(Colors.BORDER_GRAY, 0.92),
+            borderColor: hasError ? Colors.RED : Colors.BACKGROUND,
             backgroundColor:
               props.editable === false ? Colors.BACKGROUND : 'inherit',
           },

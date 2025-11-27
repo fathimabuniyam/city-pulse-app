@@ -6,6 +6,8 @@ import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import AuthLayout from '@/layouts/AuthLayout';
+import { useRegister } from '@/queries/useRegister.query';
+import { FormikHelper } from '@/types/form.types';
 import { URLs } from '@/utils/URLs.util';
 import { Formik } from 'formik';
 import { StyleSheet, View } from 'react-native';
@@ -14,12 +16,20 @@ import { signupRules } from './Auth.helper';
 
 const Signup = () => {
   const initialValues = {
-    full_name: '',
+    displayName: '',
     email: '',
     password: '',
   };
+  const { mutate: onRegister, isPending } = useRegister();
 
-  const handleRegister = async (formikProps: any) => {};
+  const handleRegister = (values: any, helper: FormikHelper) => {
+    const { setErrors, resetForm } = helper;
+    onRegister(values, {
+      onSuccess: () => {
+        resetForm();
+      },
+    });
+  };
 
   return (
     <AuthLayout type="signup">
@@ -31,7 +41,7 @@ const Signup = () => {
         {({ handleSubmit, ...formikProps }) => (
           <View style={styles.container}>
             <FormInput
-              name="full_name"
+              name="displayName"
               icon="account-outline"
               label={t('full_name')}
               autoCapitalize="words"
@@ -55,9 +65,10 @@ const Signup = () => {
               textColor={Colors.WHITE}
               style={[buttonStyles, styles.button]}
               onPress={() => handleSubmit()}
-              // loading={isPending}
+              loading={isPending}
+              disabled={isPending}
             >
-              {t('sign_in')}
+              {isPending ? t('please_wait') : t('register')}
             </Button>
 
             <Text size={14} style={styles.footerText}>
