@@ -3,7 +3,7 @@ import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import { selectIsLoggedIn } from '@/store/reducers/auth-persist.reducer';
 import { URLs } from '@/utils/URLs.util';
-import Icon from '@react-native-vector-icons/material-design-icons';
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { Tabs, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ export default function TabLayout() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    if (isLoggedIn === false) router.replace(URLs.SignUp);
+    if (isLoggedIn === false) router.replace(URLs.Login);
   }, [isLoggedIn]);
 
   return (
@@ -29,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: t('home'),
           tabBarIcon: ({ color, focused }) => (
-            <Icon
+            <MaterialDesignIcons
               size={28}
               name={focused ? 'home' : 'home-outline'}
               color={color}
@@ -42,7 +42,7 @@ export default function TabLayout() {
         options={{
           title: t('profile'),
           tabBarIcon: ({ color, focused }) => (
-            <Icon
+            <MaterialDesignIcons
               size={28}
               name={focused ? 'account' : 'account-outline'}
               color={color}
