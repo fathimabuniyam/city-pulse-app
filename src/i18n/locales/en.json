@@ -24,5 +24,6 @@
   "invalid_credentials_try_again": "Invalid credentials. Try again",
   "registration_failed_try_again": "Registration Failed._Try_again",
   "you_are_registered_successfully_please_login_to_co": "You are registered successfully. Please login to continue",
-  "please_wait": "Please wait..."
+  "please_wait": "Please wait...",
+  "login_successful": "Login successful"
 }

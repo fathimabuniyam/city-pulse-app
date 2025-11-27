@@ -1,5 +1,6 @@
 import Colors from '@/constants/Colors.constants';
-import { fontFamily, FontWeightTypes } from '@/utils/Font.util';
+import { LocaleEnum } from '@/types/locale.types';
+import { language } from '@/utils/Language.util';
 import React from 'react';
 import {
   Text as RNText,
@@ -8,7 +9,7 @@ import {
 } from 'react-native';
 
 export interface TextProps extends RNTextProps {
-  weight?: FontWeightTypes;
+  weight?: number;
   italic?: boolean;
   color?: TextStyle['color'];
   size?: TextStyle['fontSize'];
@@ -18,7 +19,7 @@ export interface TextProps extends RNTextProps {
 }
 
 const Text: React.FC<TextProps> = ({
-  weight = '400',
+  weight = 400,
   color,
   size,
   align,
@@ -47,6 +48,13 @@ const Text: React.FC<TextProps> = ({
       {children}
     </RNText>
   );
+};
+
+export const fontFamily = (weight: number, italic: boolean = false) => {
+  const fontWeight = weight ?? 400;
+  const fontFamily = language === LocaleEnum.EN ? 'Jost' : 'Cairo';
+  const fontStyle = italic ? `${fontWeight}i` : fontWeight;
+  return `${fontFamily}-${fontStyle}`;
 };
 
 export default Text;

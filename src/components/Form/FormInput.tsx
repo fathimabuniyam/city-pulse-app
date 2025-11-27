@@ -1,5 +1,4 @@
 import Colors from '@/constants/Colors.constants';
-import { fontFamilyCss } from '@/utils/Font.util';
 import MaterialDesignIcons, {
   MaterialDesignIconsIconName,
 } from '@react-native-vector-icons/material-design-icons';
@@ -12,7 +11,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import Text from '../ui/Text';
+import Text, { fontFamily } from '../ui/Text';
 
 export interface FormInputProps
   extends Omit<TextInputProps, 'onChangeText' | 'value'> {
@@ -81,7 +80,7 @@ const FormInput: React.FC<FormInputProps> = ({
           )}
 
           <TextInput
-            style={[styles.input, fontFamilyCss(400), inputStyles]}
+            style={[styles.input, { fontFamily: fontFamily(400) }, inputStyles]}
             value={fieldValue}
             onChangeText={formatInput ? onChangeText : handleChange(name)}
             onBlur={handleBlur(name)}

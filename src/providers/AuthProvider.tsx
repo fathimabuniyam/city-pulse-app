@@ -1,45 +1,70 @@
-import { selectIsLoggedIn } from '@/store/reducers/auth-persist.reducer';
+import PageLoader from '@/components/ui/PageLoader';
 import { URLs } from '@/utils/URLs.util';
 import { usePathname, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { useSelector } from 'react-redux';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { FIREBASE_AUTH } from '../../firebase';
+
+interface AuthContextType {
+  user: User | null;
+  logout: () => Promise<void>;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  logout: async () => {},
+  loading: true,
+});
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [isChecking, setIsChecking] = useState(true);
+
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const logout = async () => {
+    await signOut(FIREBASE_AUTH);
+    setUser(null);
+    router.replace(URLs.Login);
+  };
 
   useEffect(() => {
-    // Small delay to ensure Redux is initialized
-    const timer = setTimeout(() => {
-      setIsChecking(false);
-    }, 100);
-    return () => clearTimeout(timer);
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (firebaseUser) => {
+      setUser(firebaseUser);
+      setLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (isChecking) return;
+    if (loading) return;
 
     const publicRoutes = ['/auth/login', '/auth/signup'];
-    const isPublicRoute = publicRoutes.includes(pathname);
+    const isPublic = publicRoutes.includes(pathname);
 
-    if (isLoggedIn && isPublicRoute) {
-      // If logged in and trying to access auth pages, redirect to home
+    if (user && isPublic) {
+      // Logged in - redirect inside apps
       router.replace(URLs.Home);
-    } else if (!isLoggedIn && !isPublicRoute) {
-      // If not logged in and trying to access protected pages, redirect to login
+    } else if (!user && !isPublic) {
+      // Not logged in - redirect to login
       router.replace(URLs.Login);
     }
-  }, [isLoggedIn, pathname, isChecking, router]);
+  }, [user, pathname, loading]);
 
-  // Show loading while checking auth state
-  if (isChecking || isLoggedIn === null) {
-    return <ActivityIndicator size="large" />;
+  if (loading) {
+    return <PageLoader />;
   }
 
-  return <>{children}</>;
+  return (
+    <AuthContext.Provider value={{ user, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
+
+export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;

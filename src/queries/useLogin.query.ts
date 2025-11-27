@@ -1,9 +1,8 @@
 import { t } from '@/i18n';
-import { setToken } from '@/store/reducers/auth-persist.reducer';
-import { errorToast } from '@/utils/Toasts.util';
+import { errorToast, successToast } from '@/utils/Toasts.util';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
 import { FIREBASE_AUTH } from '../../firebase';
 
 interface LoginCredentials {
@@ -25,15 +24,17 @@ const onLogin = async (data: LoginCredentials): Promise<UserCredential> => {
 };
 
 export const useLogin = () => {
-  const dispatch = useDispatch();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationKey: ['onLogin'],
     mutationFn: (data: LoginCredentials) => onLogin(data),
     onSuccess: async (response: UserCredential) => {
       try {
-        const token = await response.user.getIdToken();
-        dispatch(setToken(token));
+        // Firebase automatically manages the user session, so no need to store tokens manually
+
+        successToast(t('login_successful'));
+        router.replace('/');
       } catch (err) {
         errorToast(t('token_error_try_again'));
       }
