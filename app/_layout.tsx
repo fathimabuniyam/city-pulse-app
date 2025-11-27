@@ -1,3 +1,4 @@
+import AnimatedSplash from '@/components/ui/AnimatedSplash';
 import PageLoader from '@/components/ui/PageLoader';
 import toastConfig from '@/components/ui/Toast';
 import { Fonts } from '@/constants/Fonts.constants';
@@ -7,6 +8,7 @@ import { TOAST_POSITION } from '@/utils/Toasts.util';
 import { useFonts } from '@expo-google-fonts/jost';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 
@@ -16,9 +18,14 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const [loaded] = useFonts(Fonts);
+  const [showSplash, setShowSplash] = useState(true);
 
   if (!loaded) {
     return <PageLoader />;
+  }
+
+  if (showSplash) {
+    return <AnimatedSplash onFinish={() => setShowSplash(false)} />;
   }
 
   return (
