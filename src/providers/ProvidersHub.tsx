@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import LocaleProvider from './LocaleProvider';
 import PaperThemeProvider from './PaperThemeProvider';
+import QueryProvider from './QueryProvider';
 
 interface Props {
   children: ReactNode;
@@ -14,7 +15,9 @@ function ProvidersHub({ children }: Props) {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <LocaleProvider>
-          <PaperThemeProvider>{children}</PaperThemeProvider>
+          <PaperThemeProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </PaperThemeProvider>
         </LocaleProvider>
       </PersistGate>
     </Provider>
