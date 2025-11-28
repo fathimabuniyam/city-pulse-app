@@ -1,25 +1,51 @@
+import logoImg from '@/assets/pngs/logo.png';
 import Text from '@/components/ui/Text';
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import { useAuth } from '@/providers/AuthProvider';
+import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeEvents from './HomeEvents';
 import HomeSearch from './HomeSearch';
 
 const Home = () => {
-  const { user } = useAuth();
+  const { logout } = useAuth();
 
   const [keyword, setKeyword] = useState('');
-  const [city, setCity] = useState('dubai');
+  const [city, setCity] = useState('Dubai');
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text>{t('discover_events')}</Text>
-          <Text>Find events in your location</Text>
+          <View style={styles.row}>
+            <Image
+              source={logoImg}
+              style={{ width: 50, height: 50 }}
+              resizeMode="contain"
+            />
+
+            <View>
+              <Text
+                size={24}
+                weight={700}
+                color={Colors.PRIMARY}
+                mb={-5}
+                align="center"
+              >
+                {t('discover_events')}
+              </Text>
+              <Text size={13} color={Colors.TEXT_SECONDARY} align="center">
+                {t('find_events_in_any_location')}
+              </Text>
+            </View>
+
+            <TouchableOpacity onPress={logout}>
+              <MaterialDesignIcons name="power" size={28} color={Colors.RED} />
+            </TouchableOpacity>
+          </View>
 
           <HomeSearch
             keyword={keyword}
@@ -45,23 +71,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.WHITE,
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   header: {
     marginBottom: 20,
-  },
-  columns: {
-    justifyContent: 'space-between',
+    borderBottomColor: Colors.BORDER_GRAY,
+    borderBottomWidth: 1,
+    paddingBottom: 15,
+    gap: 5,
   },
 });
-
-const aa = {
-  _embedded: { events: [[Object]] },
-  _links: {
-    first: { href: '/discovery/v2/events.json?page=0&size=1' },
-    last: { href: '/discovery/v2/events.json?page=302030&size=1' },
-    next: { href: '/discovery/v2/events.json?page=1&size=1' },
-    self: { href: '/discovery/v2/events.json?size=1' },
-  },
-  page: { number: 0, size: 1, totalElements: 302031, totalPages: 302031 },
-};
 
 export default Home;

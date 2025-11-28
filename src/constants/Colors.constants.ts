@@ -4,6 +4,7 @@ const Colors = {
 
   TEXT_PRIMARY: '#1D1D1D',
   TEXT_SECONDARY: '#646464ff',
+  INPUT_BORDER: '#c6c6c6ff',
 
   BORDER_GRAY: '#E0E0E0', // For Borders
   BACKGROUND: '#F2F2F2', // Screen Background

@@ -1,7 +1,7 @@
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import Text from '../ui/Text';
 
@@ -24,10 +24,12 @@ const EventCard = ({ event }: any) => {
 
   return (
     <Card style={styles.card}>
-      <Card.Cover
-        source={{ uri: event?.images?.[0]?.url }}
-        resizeMode="cover"
-      />
+      <View style={styles.coverBox}>
+        <Card.Cover
+          source={{ uri: event?.images?.[0]?.url }}
+          resizeMode="cover"
+        />
+      </View>
 
       <Card.Content style={styles.content}>
         <Text
@@ -35,12 +37,12 @@ const EventCard = ({ event }: any) => {
           weight={500}
           numberOfLines={2}
           ellipsizeMode="tail"
-          mb={10}
+          mb={5}
         >
           {event?.name || t('event_name')}
         </Text>
 
-        <Text size={14} color={Colors.TEXT_SECONDARY}>
+        <Text size={14} color={Colors.TEXT_SECONDARY} mb={4}>
           <MaterialDesignIcons
             name="map-marker-outline"
             size={16}
@@ -69,14 +71,20 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     width: '48%',
     backgroundColor: Colors.WHITE,
+    boxShadow: 'none',
   },
   content: {
     marginTop: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 8,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginTop: 12,
+  },
+  coverBox: {
+    position: 'relative',
   },
 });
 
