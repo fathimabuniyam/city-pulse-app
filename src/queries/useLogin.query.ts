@@ -34,7 +34,6 @@ export const useLogin = () => {
         // Firebase automatically manages the user session, so no need to store tokens manually
 
         successToast(t('login_successful'));
-        router.replace('/');
       } catch (err) {
         errorToast(t('token_error_try_again'));
       }

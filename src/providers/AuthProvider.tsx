@@ -47,7 +47,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (user && isPublic) {
       // Logged in - redirect inside apps
-      router.replace(URLs.Home);
+      router.replace('/');
     } else if (!user && !isPublic) {
       // Not logged in - redirect to login
       router.replace(URLs.Login);

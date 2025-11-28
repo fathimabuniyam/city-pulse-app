@@ -4,6 +4,5 @@ export const URLs: any = {
   Login: 'auth/login',
   SignUp: 'auth/signup',
 
-  Home: 'main',
   Profile: 'profile',
 };
