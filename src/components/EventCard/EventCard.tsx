@@ -4,6 +4,7 @@ import MaterialDesignIcons from '@react-native-vector-icons/material-design-icon
 import { StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import Text from '../ui/Text';
+import EventCardFavorite from './EventCardFavorite';
 
 const EventCard = ({ event }: any) => {
   const venueName = event?._embedded?.venues[0]?.city?.name;
@@ -29,6 +30,7 @@ const EventCard = ({ event }: any) => {
           source={{ uri: event?.images?.[0]?.url }}
           resizeMode="cover"
         />
+        <EventCardFavorite eventId={event?.id} />
       </View>
 
       <Card.Content style={styles.content}>
