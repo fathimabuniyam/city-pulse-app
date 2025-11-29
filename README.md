@@ -1,50 +1,156 @@
-# Welcome to your Expo app 👋
+# City Pulse App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Documentation
 
-## Get started
+### 📖 Overview
 
-1. Install dependencies
+City Pulse is a modern, cross-platform mobile application built with Expo and React Native. It helps users discover events in their city, powered by the Ticketmaster API. The app features a clean, user-friendly interface with full support for both English and Arabic, including RTL (Right-to-Left) layout switching.
 
-   ```bash
-   npm install
-   ```
+#### UI/UX
 
-2. Start the app
+The design inspiration was obtained from Google screenshot references and MagicPath.ai.
+The app logo was sourced from design.com and refined using ChatGPT.
 
-   ```bash
-   npx expo start
-   ```
+#### Stack
 
-In the output, you'll find options to open the app in a
+- **Repository**: https://github.com/fathimabuniyam/city-pulse-app
+- **Framework**: Expo (SDK 49+)
+- **Frontend**: React Native, React Native Paper, Custom Components
+- **Language**: TypeScript
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## ✨ Features
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Event Discovery**: Browse and search for events using the Ticketmaster API.
 
-## Get a fresh project
+- **Infinite Scroll**: Effortlessly load more events on the home screen.
 
-When you're ready, run:
+- **Bilingual Support**: Full English & Arabic localization with RTL layout support.
 
-```bash
-npm run reset-project
+- **User Authentication**: Secure sign-up and login using **Firebase Auth**.
+
+- **Favorites System**: Mark and save favorite events, synced with **Firebase DB**.
+
+- **Biometric Authentication**: Secure login using Face ID / Touch ID.
+
+- **Offline-First Caching**: Efficient data caching and state management with **TanStack Query**.
+
+- **Form Handling**: Robust form validation with Formik and Yup.
+
+- **Cross-Platform**: Runs seamlessly on both iOS and Android.
+
+## 🏗 Project Architecture
+
+Folder Structure
+
+```
+city-pulse-app/
+├── app/ # Expo File-Based Routes (Main Navigation Stack & Tabs)
+├── src/
+│ ├── components/ # Reusable UI & Common Components
+│ ├── constants/ # Color palettes, font definitions, etc.
+│ ├── i18n/ # Localization files (translations, setup)
+│ ├── layout/ # Auth Screen Layouts/Components
+│ ├── providers/ # React Context Providers (Auth, Locale, etc.)
+│ ├── queries/ # TanStack Query hooks & API calls (Firebase, Ticketmaster)
+│ ├── screens/ # All Screen Components (mirrors app/ for organization)
+│ ├── types/ # TypeScript definitions, interfaces, enums
+│ └── utils/ # Utility functions (biometrics, toasts, helpers)
+├── .eslintrc.js # ESLint configuration
+├── .prettierrc # Prettier configuration
+├── firebase.ts # Firebase configuration
+└── ... (other config files)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🎬 App Startup Behavior
 
-## Learn more
+- Expo Default Splash
 
-To learn more about developing your project with Expo, look at the following resources:
+  > When the app starts inside Expo Go or a simulator, a white background with the Expo default logo appears.
+  >
+  > This is **NOT the app’s splash screen** — it's built-in behavior from Expo’s development environment.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- App's Actual Splash Screen
 
-## Join the community
+  > After the Expo logo disappears:
+  >
+  > A custom splash screen with bouncing logo animation is displayed.
+  >
+  > This is your actual branded splash screen.
 
-Join our community of developers creating universal apps.
+- Navigation After Splash
+  > Handled via AuthProvider:
+  >
+  > If a token exists in **AsyncStorage**, user is taken to Home.
+  >
+  > If no token is found, user is redirected to the Login screen.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## App Information
+
+#### 🔐 Authentication Flow with Firebase Auth + AsyncStorage
+
+- User signs in → Firebase returns token → token is stored in:
+
+- React Native **AsyncStorage**
+
+- Synced with **Firestore** (merged storage)
+
+#### Internationalization (i18n)
+
+- Library: Implemented using i18n-js.
+
+- Storage: The user's language preference is stored in AsyncStorage.
+
+- RTL Support: Managed by the LocaleProvider (src/providers/LocaleProvider.ts). The app dynamically switches to RTL layout when Arabic is selected.
+
+- **Note on Expo Go**: RTL layout changes are not visible in the Expo Go app due to a known limitation. **They work perfectly in production builds and development builds on physical devices**.
+
+#### Data Management with TanStack Query
+
+- Caching: All API responses from Ticketmaster and Firebase are automatically cached.
+
+- Infinite Scroll: The home screen's event list implements infinite scrolling using TanStack Query's useInfiniteQuery hook, providing a seamless user experience.
+
+- Optimistic Updates: Favorite events are managed by storing only the Event ID in the user's Firebase document. The app then fetches the full event details based on these IDs.
+
+## Installation & Running
+
+### Clone the repository
+
+```
+git clone https://github.com/fathimabuniyam/city-pulse-app.git
+cd city-pulse-app
+```
+
+Install dependencies
+
+```
+npm install
+# or
+yarn install
+```
+
+Start the development server
+
+```
+npx expo start
+# or
+yarn start
+```
+
+You can then run the app on an emulator/simulator or scan the QR code with the Expo Go app on your physical device.
+
+## 📱 Screenshots & Media
+
+- Screenshots of the app running on Android (Simulator) and iOS (Physical Device).
+
+- A screen recording demonstrating the app flow on both platforms.
+
+- Screenshots of the Firebase Firestore database structure.
+
+## 👨‍💻 Development Practices
+
+- **Code Quality**: Enforced using ESLint and Prettier.
+
+- **Version Control**: Regular, atomic commits are pushed to GitHub to track progress and changes clearly.
+
+- **Development Environment**: Primary IDE - VSCode
