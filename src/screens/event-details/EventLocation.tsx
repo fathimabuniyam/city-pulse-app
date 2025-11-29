@@ -22,7 +22,7 @@ const EventLocation = ({ event }: any) => {
   const lat = Number(latitude);
   const lng = Number(longitude);
 
-  const renderMapView = (stylesObj: any) => (
+  const renderMapView = (stylesObj: any, isMovable: boolean) => (
     <MapView
       style={[stylesObj, StyleSheet.absoluteFillObject]}
       initialRegion={{
@@ -31,10 +31,10 @@ const EventLocation = ({ event }: any) => {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       }}
-      zoomEnabled={false}
-      rotateEnabled={false}
-      scrollEnabled={false}
-      pitchEnabled={false}
+      zoomEnabled={isMovable}
+      rotateEnabled={isMovable}
+      scrollEnabled={isMovable}
+      pitchEnabled={isMovable}
     >
       <Marker coordinate={{ latitude: lat, longitude: lng }} />
     </MapView>
@@ -48,7 +48,7 @@ const EventLocation = ({ event }: any) => {
 
       <TouchableOpacity onPress={openModal} activeOpacity={0.9}>
         <View style={styles.previewMap}>
-          {renderMapView(styles.previewMap)}
+          {renderMapView(styles.previewMap, false)}
         </View>
       </TouchableOpacity>
 
@@ -59,7 +59,7 @@ const EventLocation = ({ event }: any) => {
           onDismiss={closeModal}
           contentContainerStyle={styles.modalContainer}
         >
-          {renderMapView(styles.fullMap)}
+          {renderMapView(styles.fullMap, true)}
 
           <IconButton
             icon="close"

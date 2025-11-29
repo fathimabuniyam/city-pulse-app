@@ -27,11 +27,13 @@ const EventCard = ({ event }: any) => {
         />
         <EventCardFavorite eventId={event?.id} />
 
-        <Chip style={[styles.chip, styles.chip1]} compact>
-          <Text color={Colors.WHITE} size={11} lineHeight={12}>
-            {segment}
-          </Text>
-        </Chip>
+        {segment && (
+          <Chip style={[styles.chip, styles.chip1]} compact>
+            <Text color={Colors.WHITE} size={11} lineHeight={15}>
+              {segment}
+            </Text>
+          </Chip>
+        )}
       </View>
 
       <Card.Content style={styles.content}>
