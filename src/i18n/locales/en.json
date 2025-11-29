@@ -46,5 +46,22 @@
   "category": "Category",
   "attractions": "Attractions",
   "location": "Location",
-  "click_to_see_full_view": "(Click to see full view)"
+  "click_to_see_full_view": "(Click to see full view)",
+  "sign_in_with_biometrics": "Sign in with Biometrics",
+  "no_saved_account": "No saved account",
+  "please_login_with_email_and_password_first": "Please login with email and password first.",
+  "authenticate_to_login": "Authenticate to login",
+  "use_password": "Use password",
+  "biometric_login": "Biometric Login",
+  "enter_password_for": "Enter password for",
+  "cancel": "Cancel",
+  "login": "Login",
+  "authentication_failed": "Authentication Failed",
+  "biometric_authentication_was_cancelled_or_failed": "Biometric authentication was cancelled or failed",
+  "biometric_authentication_failed": "Biometric authentication failed",
+  "your_email_is_saved_next_time_log_in_quickly_with": "Your email is saved. Next time, log in quickly with Biometrics",
+  "biometrics_saved_for": "Biometrics saved for",
+  "delete_biometric_data": "Delete biometric data",
+  "biometric_login_data_has_been_deleted": "Biometric login data has been deleted",
+  "failed_to_delete_biometric_data": "Failed to delete biometric data"
 }

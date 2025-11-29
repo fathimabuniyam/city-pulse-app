@@ -8,19 +8,32 @@ import { t } from '@/i18n';
 import AuthLayout from '@/layouts/AuthLayout';
 import { useLogin } from '@/queries/useLogin.query';
 import { FormikHelper } from '@/types/form.types';
+import { successToast } from '@/utils/Toasts.util';
 import { URLs } from '@/utils/URLs.util';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Formik } from 'formik';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { loginRules } from './Auth.helper';
+import LoginBiometric, { BIOMETRIC_EMAIL_KEY } from './LoginBiometric';
 
 const Login = () => {
   const { mutate: onLogin, isPending } = useLogin();
+  const [savedEmail, setSavedEmail] = useState<string | null>(null);
 
   const handleLogin = (values: any, helper: FormikHelper) => {
-    const { setErrors, resetForm } = helper;
+    const { resetForm } = helper;
+
     onLogin(values, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await AsyncStorage.setItem(BIOMETRIC_EMAIL_KEY, values.email);
+        setSavedEmail(values.email);
+        successToast(
+          t('your_email_is_saved_next_time_log_in_quickly_with'),
+          t('login_successful'),
+        );
+
         resetForm();
       },
     });
@@ -32,6 +45,7 @@ const Login = () => {
         initialValues={{ email: '', password: '' }}
         validationSchema={loginRules}
         onSubmit={handleLogin}
+        enableReinitialize
       >
         {({ handleSubmit }) => (
           <View style={styles.container}>
@@ -57,6 +71,13 @@ const Login = () => {
             >
               {t('sign_in')}
             </Button>
+
+            <LoginBiometric
+              savedEmail={savedEmail}
+              setSavedEmail={setSavedEmail}
+              isPending={isPending}
+              onLogin={onLogin}
+            />
 
             <Text size={14} style={styles.footerText}>
               {t('dont_have_an_account')}{' '}
@@ -96,4 +117,5 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 });
+
 export default Login;

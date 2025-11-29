@@ -1,7 +1,6 @@
 import { t } from '@/i18n';
-import { errorToast, successToast } from '@/utils/Toasts.util';
+import { errorToast } from '@/utils/Toasts.util';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
 import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { FIREBASE_AUTH } from '../../firebase';
 
@@ -24,19 +23,11 @@ const onLogin = async (data: LoginCredentials): Promise<UserCredential> => {
 };
 
 export const useLogin = () => {
-  const router = useRouter();
-
   const mutation = useMutation({
     mutationKey: ['onLogin'],
     mutationFn: (data: LoginCredentials) => onLogin(data),
     onSuccess: async (response: UserCredential) => {
-      try {
-        // Firebase automatically manages the user session, so no need to store tokens manually
-
-        successToast(t('login_successful'));
-      } catch (err) {
-        errorToast(t('token_error_try_again'));
-      }
+      // Firebase automatically manages the user session, so no need to store tokens manually
     },
     onError: (error: any) => {
       errorToast(

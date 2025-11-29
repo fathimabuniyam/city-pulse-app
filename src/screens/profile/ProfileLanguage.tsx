@@ -8,7 +8,6 @@ import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const ProfileLanguage = () => {
   const { locale, setLocale } = useLocale();
-  console.log('locale : ', locale);
 
   const texts = {
     en: 'English',
