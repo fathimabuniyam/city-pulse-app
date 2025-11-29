@@ -15,7 +15,31 @@ const EventLocation = ({ event }: any) => {
   const latitude = event?._embedded?.venues?.[0]?.location?.latitude || null;
   const longitude = event?._embedded?.venues?.[0]?.location?.longitude || null;
 
-  if (!latitude || !longitude) return <Text>N/A</Text>;
+  if (!latitude || !longitude || isNaN(latitude) || isNaN(longitude)) {
+    return <Text>N/A</Text>;
+  }
+
+  const lat = Number(latitude);
+  const lng = Number(longitude);
+
+  const renderMapView = (stylesObj: any) => (
+    <MapView
+      style={[stylesObj, StyleSheet.absoluteFillObject]}
+      initialRegion={{
+        latitude: lat,
+        longitude: lng,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }}
+      zoomEnabled={false}
+      rotateEnabled={false}
+      scrollEnabled={false}
+      pitchEnabled={false}
+    >
+      <Marker coordinate={{ latitude: lat, longitude: lng }} />
+    </MapView>
+  );
+
   return (
     <View style={styles.container}>
       <Text size={18} weight={600} mb={10}>
@@ -23,18 +47,9 @@ const EventLocation = ({ event }: any) => {
       </Text>
 
       <TouchableOpacity onPress={openModal} activeOpacity={0.9}>
-        <MapView
-          style={styles.previewMap}
-          initialRegion={{
-            latitude,
-            longitude,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
-          pointerEvents="none" // disables interaction for preview
-        >
-          <Marker coordinate={{ latitude, longitude }} />
-        </MapView>
+        <View style={styles.previewMap}>
+          {renderMapView(styles.previewMap)}
+        </View>
       </TouchableOpacity>
 
       {/* View to see it in full modal */}
@@ -44,17 +59,7 @@ const EventLocation = ({ event }: any) => {
           onDismiss={closeModal}
           contentContainerStyle={styles.modalContainer}
         >
-          <MapView
-            style={styles.fullMap}
-            initialRegion={{
-              latitude,
-              longitude,
-              latitudeDelta: 0.05,
-              longitudeDelta: 0.05,
-            }}
-          >
-            <Marker coordinate={{ latitude, longitude }} />
-          </MapView>
+          {renderMapView(styles.fullMap)}
 
           <IconButton
             icon="close"

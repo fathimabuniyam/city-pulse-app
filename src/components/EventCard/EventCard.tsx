@@ -3,7 +3,7 @@ import { t } from '@/i18n';
 import { URLs } from '@/utils/URLs.util';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { useRouter } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Card, Chip } from 'react-native-paper';
 import Text from '../ui/Text';
 import EventCardFavorite from './EventCardFavorite';
@@ -27,7 +27,7 @@ const EventCard = ({ event }: any) => {
         />
         <EventCardFavorite eventId={event?.id} />
 
-        <Chip style={[styles.chip, styles.chip1]}>
+        <Chip style={[styles.chip, styles.chip1]} compact>
           <Text color={Colors.WHITE} size={11} lineHeight={12}>
             {segment}
           </Text>
@@ -69,6 +69,12 @@ const EventCard = ({ event }: any) => {
   );
 };
 
+const androidSize = Platform.select({
+  android: {
+    minWidth: 70,
+  },
+});
+
 const styles = StyleSheet.create({
   card: {
     marginBottom: 15,
@@ -96,6 +102,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 2,
     left: 10,
+    ...androidSize,
   },
   chip1: {
     backgroundColor: Colors.PRIMARY,
