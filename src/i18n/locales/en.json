@@ -38,5 +38,13 @@
   "favorites": "Favorites",
   "my_profile": "My Profile",
   "language": "Language",
-  "search_for_arts_music_and_more_or_explore_cities_s": "Search for Arts, Music, and more, or explore cities such as Dubai, Miami, etc."
+  "search_for_arts_music_and_more_or_explore_cities_s": "Search for Arts, Music, and more, or explore cities such as Dubai, Miami, etc.",
+  "back": "Back",
+  "date": "Date",
+  "time": "Time",
+  "information": "Information",
+  "category": "Category",
+  "attractions": "Attractions",
+  "location": "Location",
+  "click_to_see_full_view": "(Click to see full view)"
 }

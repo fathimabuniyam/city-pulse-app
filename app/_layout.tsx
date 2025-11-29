@@ -1,7 +1,9 @@
 import AnimatedSplash from '@/components/ui/AnimatedSplash';
 import PageLoader from '@/components/ui/PageLoader';
 import toastConfig from '@/components/ui/Toast';
+import Colors from '@/constants/Colors.constants';
 import { Fonts } from '@/constants/Fonts.constants';
+import { t } from '@/i18n';
 import AuthProvider from '@/providers/AuthProvider';
 import ProvidersHub from '@/providers/ProvidersHub';
 import { TOAST_POSITION } from '@/utils/Toasts.util';
@@ -44,6 +46,18 @@ function RootStack() {
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="auth" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="events/[id]"
+        options={{
+          headerTintColor: Colors.PRIMARY,
+          headerBackTitle: t('back'),
+          headerBackTitleStyle: {
+            fontSize: 15,
+          },
+          headerTitle: '',
+          headerShadowVisible: false,
+        }}
+      />
     </Stack>
   );
 }

@@ -1,30 +1,23 @@
 import Colors from '@/constants/Colors.constants';
 import { t } from '@/i18n';
+import { URLs } from '@/utils/URLs.util';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
 import Text from '../ui/Text';
 import EventCardFavorite from './EventCardFavorite';
 
 const EventCard = ({ event }: any) => {
+  const router = useRouter();
   const venueName = event?._embedded?.venues[0]?.city?.name;
 
-  const getFormattedDateTime = () => {
-    const dateString = event.dates?.start?.dateTime || null;
-
-    if (!dateString) return null;
-
-    const dateObj = new Date(dateString);
-    const date = String(dateObj.getDate()).padStart(2, '0');
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const year = dateObj.getFullYear();
-    const formattedDate = `${date}-${month}-${year}`;
-
-    return formattedDate;
+  const handleGoToDetails = () => {
+    router.push(`${URLs.EventDetails}/${event.id}` as any);
   };
 
   return (
-    <Card style={styles.card}>
+    <Card style={styles.card} onPress={handleGoToDetails}>
       <View style={styles.coverBox}>
         <Card.Cover
           source={{ uri: event?.images?.[0]?.url }}
@@ -61,7 +54,7 @@ const EventCard = ({ event }: any) => {
             size={16}
             color={Colors.TEXT_SECONDARY}
           />{' '}
-          {getFormattedDateTime()}
+          {event.dates?.start?.localDate || 'N/A'}
         </Text>
       </Card.Content>
     </Card>

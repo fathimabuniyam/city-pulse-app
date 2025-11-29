@@ -5,4 +5,5 @@ export const URLs: any = {
   SignUp: 'auth/signup',
 
   Profile: 'profile',
+  EventDetails: 'events',
 };
