@@ -14,7 +14,7 @@ const Home = () => {
   const { logout } = useAuth();
 
   const [keyword, setKeyword] = useState('');
-  const [city, setCity] = useState('Dubai');
+  const [city, setCity] = useState('');
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -53,6 +53,10 @@ const Home = () => {
             city={city}
             setCity={setCity}
           />
+
+          <Text size={10} color={Colors.TEXT_SECONDARY}>
+            {t('search_for_arts_music_and_more_or_explore_cities_s')}
+          </Text>
         </View>
 
         <HomeEvents keyword={keyword} city={city} />

@@ -37,5 +37,6 @@
   "token_error_try_again": "خطأ في الرمز المميز. \nحاول ثانية",
   "user_not_authenticated": "لم تتم مصادقة المستخدم",
   "welcome_back": "مرحبًا بعودتك",
-  "you_are_registered_successfully_please_login_to_co": "لقد تم تسجيلك بنجاح. \nالرجاء تسجيل الدخول للمتابعة"
+  "you_are_registered_successfully_please_login_to_co": "لقد تم تسجيلك بنجاح. \nالرجاء تسجيل الدخول للمتابعة",
+  "search_for_arts_music_and_more_or_explore_cities_s": "ابحث عن الفنون والموسيقى والمزيد، أو استكشف مدنًا مثل دبي وميامي وما إلى ذلك."
 }
