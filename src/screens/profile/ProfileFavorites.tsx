@@ -5,15 +5,18 @@ import { t } from '@/i18n';
 import { useGetFavoriteEvents } from '@/queries/useGetFavoriteEvents.query';
 import { useGetFavoriteIds } from '@/queries/useGetFavoriteIds.query';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ProfileFavorites = () => {
+  const insets = useSafeAreaInsets();
+
   const { data: ids } = useGetFavoriteIds();
   const { data, refetch, isFetching, isRefetching } = useGetFavoriteEvents(
     ids || [],
   );
 
   return (
-    <View>
+    <View style={{ paddingBottom: insets.bottom + 200 || 200 }}>
       <Text size={22} color={Colors.PRIMARY} weight={700} mb={10}>
         {t('favorites')}
       </Text>
