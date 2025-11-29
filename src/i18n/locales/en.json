@@ -33,5 +33,9 @@
   "no_events_found_please_search_using_a_different_ke": "No events found. Please search using a different keyword or valid city.",
   "searching_for_events": "Searching for events...",
   "find_events_in_any_location": "Find events in any location",
-  "user_not_authenticated": "User not authenticated"
+  "user_not_authenticated": "User not authenticated",
+  "no_favorites_yet": "No favorites yet.",
+  "favorites": "Favorites",
+  "my_profile": "My Profile",
+  "language": "Language"
 }

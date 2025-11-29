@@ -1,4 +1,5 @@
 import Colors from '@/constants/Colors.constants';
+import { useLocale } from '@/providers/LocaleProvider';
 import MaterialDesignIcons, {
   MaterialDesignIconsIconName,
 } from '@react-native-vector-icons/material-design-icons';
@@ -37,6 +38,7 @@ const FormInput: React.FC<FormInputProps> = ({
   formatInput,
   ...props
 }) => {
+  const { locale } = useLocale();
   const { values, handleChange, handleBlur, setFieldValue, errors, touched } =
     useFormikContext<any>();
 
@@ -80,7 +82,11 @@ const FormInput: React.FC<FormInputProps> = ({
           )}
 
           <TextInput
-            style={[styles.input, { fontFamily: fontFamily(400) }, inputStyles]}
+            style={[
+              styles.input,
+              { fontFamily: fontFamily(400, false, locale) },
+              inputStyles,
+            ]}
             value={fieldValue}
             onChangeText={formatInput ? onChangeText : handleChange(name)}
             onBlur={handleBlur(name)}

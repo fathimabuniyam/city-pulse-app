@@ -19,7 +19,10 @@
         "monochromeImage": "./src/assets/pngs/logo.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      }
     },
     "web": {
       "output": "static",
@@ -38,11 +41,26 @@
             "backgroundColor": "#FFFFFF"
           }
         }
+      ],
+      [
+        "expo-localization",
+        {
+          "supportedLocales": {
+            "ios": ["en", "ar"],
+            "android": ["en", "ar"]
+          }
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "locales": {
+      "ar": "./src/i18n/locales/ar.json"
+    },
+    "extra": {
+      "supportsRTL": true
     }
   }
 }

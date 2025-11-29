@@ -1,6 +1,6 @@
 import Colors from '@/constants/Colors.constants';
+import { useLocale } from '@/providers/LocaleProvider';
 import { LocaleEnum } from '@/types/locale.types';
-import { language } from '@/utils/Language.util';
 import React from 'react';
 import {
   Text as RNText,
@@ -30,11 +30,12 @@ const Text: React.FC<TextProps> = ({
   children,
   ...props
 }) => {
+  const { locale } = useLocale();
   return (
     <RNText
       style={[
         {
-          fontFamily: fontFamily(weight, italic),
+          fontFamily: fontFamily(weight, italic, locale),
           color: color ?? Colors.TEXT_PRIMARY,
           fontSize: size ?? 17,
           textAlign: align ?? 'left',
@@ -50,9 +51,13 @@ const Text: React.FC<TextProps> = ({
   );
 };
 
-export const fontFamily = (weight: number, italic: boolean = false) => {
+export const fontFamily = (
+  weight: number,
+  italic: boolean = false,
+  locale: LocaleEnum,
+) => {
   const fontWeight = weight ?? 400;
-  const fontFamily = language === LocaleEnum.EN ? 'Jost' : 'Cairo';
+  const fontFamily = locale === LocaleEnum.AR ? 'Cairo' : 'Jost';
   const fontStyle = italic ? `${fontWeight}i` : fontWeight;
   return `${fontFamily}-${fontStyle}`;
 };

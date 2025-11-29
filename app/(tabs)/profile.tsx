@@ -1,18 +1,5 @@
-import { StyleSheet, View } from 'react-native';
+import Profile from '@/screens/profile/Profile';
 
-export default function TabTwoScreen() {
-  return <View></View>;
+export default function ProfileScreen() {
+  return <Profile />;
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});

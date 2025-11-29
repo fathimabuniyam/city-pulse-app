@@ -4088,7 +4088,7 @@ expo-linking@~8.0.9:
     expo-constants "~18.0.10"
     invariant "^2.2.4"
 
-expo-localization@^17.0.7:
+expo-localization@~17.0.7:
   version "17.0.7"
   resolved "https://registry.yarnpkg.com/expo-localization/-/expo-localization-17.0.7.tgz#24559be23cb7d9757fd8f8c88380d7b4ee2339a2"
   integrity sha512-ACg1B0tJLNa+f8mZfAaNrMyNzrrzHAARVH1sHHvh+LolKdQpgSKX69Uroz1Llv4C71furpwBklVStbNcEwVVVA==

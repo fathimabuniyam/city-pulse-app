@@ -1,37 +1,92 @@
+import PageLoader from '@/components/ui/PageLoader';
 import i18n from '@/i18n';
 import { LocaleEnum } from '@/types/locale.types';
-import React, { ReactNode, useEffect, useMemo } from 'react';
-import { I18nManager } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Updates from 'expo-updates';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { DevSettings, I18nManager } from 'react-native';
 
-interface Props {
-  children: ReactNode;
+interface LocaleContextProps {
+  locale: LocaleEnum;
+  setLocale: (locale: LocaleEnum) => void;
 }
 
-const LocaleProvider: React.FC<Props> = ({ children }) => {
-  // Determine active language once per change
-  const activeLocale = useMemo(() => {
-    return i18n.locale.startsWith(LocaleEnum.AR)
-      ? LocaleEnum.AR
-      : LocaleEnum.EN;
-  }, [i18n.locale]);
+const LocaleContext = createContext<LocaleContextProps>({
+  locale: LocaleEnum.EN,
+  setLocale: () => {},
+});
+
+export const useLocale = () => useContext(LocaleContext);
+
+const LocaleProvider = ({ children }: any) => {
+  const [locale, setLocaleState] = useState<LocaleEnum>(LocaleEnum.EN);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Update i18n locale if needed
-    if (i18n.locale !== activeLocale) {
-      i18n.locale = activeLocale;
-    }
+    // Load saved language only once on app start
+    const loadSavedLocale = async () => {
+      try {
+        const saved = await AsyncStorage.getItem('app_locale');
+        if (saved && saved !== locale) {
+          // Only update the state, don't trigger reload during initialization
+          i18n.locale = saved as LocaleEnum;
+          const isRTL = saved === LocaleEnum.AR;
 
-    // Handle RTL layout
-    const isRTL = activeLocale === LocaleEnum.AR;
+          if (I18nManager.isRTL !== isRTL) {
+            I18nManager.allowRTL(isRTL);
+            I18nManager.forceRTL(isRTL);
+          }
+
+          setLocaleState(saved as LocaleEnum);
+        }
+      } catch (error) {
+        console.error('Error loading saved locale:', error);
+      } finally {
+        setIsInitialized(true);
+      }
+    };
+
+    loadSavedLocale();
+  }, []); // Empty dependency array - runs only once
+
+  const changeLocale = async (newLocale: LocaleEnum) => {
+    if (newLocale === locale) return;
+
+    i18n.locale = newLocale;
+
+    const isRTL = newLocale === LocaleEnum.AR;
+
     if (I18nManager.isRTL !== isRTL) {
       I18nManager.allowRTL(isRTL);
       I18nManager.forceRTL(isRTL);
-      // ⚠️ TODO Note: changing RTL direction requires app reload for full effect
-      // RNRestart.Restart();
     }
-  }, [activeLocale]);
 
-  return <>{children}</>;
+    await AsyncStorage.setItem('app_locale', newLocale);
+    setLocaleState(newLocale);
+
+    // Reload app
+    if (__DEV__) {
+      // Development
+      if (DevSettings?.reload) {
+        DevSettings.reload();
+      }
+    } else {
+      // Production
+      if (Updates.reloadAsync) {
+        await Updates.reloadAsync();
+      }
+    }
+  };
+
+  const value = useMemo(() => ({ locale, setLocale: changeLocale }), [locale]);
+
+  if (!isInitialized) {
+    return <PageLoader />;
+  }
+
+  return (
+    <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>
+  );
 };
 
 export default LocaleProvider;

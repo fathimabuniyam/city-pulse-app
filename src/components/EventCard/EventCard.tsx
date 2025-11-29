@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     width: '48%',
     backgroundColor: Colors.WHITE,
-    boxShadow: 'none',
   },
   content: {
     marginTop: 10,
