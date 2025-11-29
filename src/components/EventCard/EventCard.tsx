@@ -4,17 +4,19 @@ import { URLs } from '@/utils/URLs.util';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { Card } from 'react-native-paper';
+import { Card, Chip } from 'react-native-paper';
 import Text from '../ui/Text';
 import EventCardFavorite from './EventCardFavorite';
 
 const EventCard = ({ event }: any) => {
   const router = useRouter();
-  const venueName = event?._embedded?.venues[0]?.city?.name;
 
   const handleGoToDetails = () => {
     router.push(`${URLs.EventDetails}/${event.id}` as any);
   };
+
+  const venueName = event?._embedded?.venues[0]?.city?.name;
+  const segment = event?.classifications?.[0]?.segment?.name;
 
   return (
     <Card style={styles.card} onPress={handleGoToDetails}>
@@ -24,6 +26,12 @@ const EventCard = ({ event }: any) => {
           resizeMode="cover"
         />
         <EventCardFavorite eventId={event?.id} />
+
+        <Chip style={[styles.chip, styles.chip1]}>
+          <Text color={Colors.WHITE} size={11} lineHeight={12}>
+            {segment}
+          </Text>
+        </Chip>
       </View>
 
       <Card.Content style={styles.content}>
@@ -79,6 +87,18 @@ const styles = StyleSheet.create({
   },
   coverBox: {
     position: 'relative',
+  },
+  chip: {
+    maxHeight: 25,
+    padding: 0,
+    marginBottom: 10,
+    borderRadius: 100,
+    position: 'absolute',
+    bottom: 2,
+    left: 10,
+  },
+  chip1: {
+    backgroundColor: Colors.PRIMARY,
   },
 });
 
