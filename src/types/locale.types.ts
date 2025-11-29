@@ -9,3 +9,8 @@ export interface LocaleTextType {
   en: string;
   ar: string;
 }
+
+export const LocaleTaskMaster: Record<LocaleTypes, string> = {
+  en: 'en',
+  ar: 'en',
+};
